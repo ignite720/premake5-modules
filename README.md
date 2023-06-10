@@ -6,7 +6,7 @@ dofile("premake5-modules/VSPropertySheets.lua")
 project("foobar")
 	kind("ConsoleApp")
 	language("C")
-	filter("system:windows")
+	filter("action:vs*")
 		VSPropertySheets({
 			"D:\\dev2\\foo.props",
 			"D:\\dev2\\bar.props",
