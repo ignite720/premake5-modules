@@ -2,12 +2,12 @@ newaction({
 	trigger = "clean",
 	description = "clean all intermediate files",
 	execute = function()
-		local dirs_to_delete = {
+		local dirsToDelete = {
 			"bin",
 			"build",
 			".vs",
 		}
-		local files_to_delete = {
+		local filesToDelete = {
 			"*.Makefile",
 			"*.make",
 			"*.db",
@@ -19,19 +19,22 @@ newaction({
 			"*.xcodeproj",
 			"*.xcworkspace",
 		}
-		files_to_delete = {}
-		for i, v in ipairs(dirs_to_delete) do
+		
+		for i, v in ipairs(dirsToDelete) do
 			os.rmdir(v)
 		end
-		if os.istarget("windows") then
-			for i, v in ipairs(files_to_delete) do
-				--os.remove(v)	-- can only delete files in current directory
-				os.execute("del /F /Q /S " .. v)
-			end
-		else
-			os.execute("find . -name .DS_Store -delete")
-			for i, v in ipairs(files_to_delete) do
-				os.execute("rm -rf " .. v)
+		
+		if false then
+			if os.istarget("windows") then
+				for i, v in ipairs(filesToDelete) do
+					--os.remove(v)		-- This will only delete files in the current folder
+					os.execute("del /F /Q /S " .. v)
+				end
+			else
+				os.execute("find . -name .DS_Store -delete")
+				for i, v in ipairs(filesToDelete) do
+					os.execute("rm -rf " .. v)
+				end
 			end
 		end
 	end
